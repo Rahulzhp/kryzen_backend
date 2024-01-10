@@ -7,7 +7,7 @@ const FormDataRoute = express.Router();
 // const upload = multer({ storage });
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/product");
+        cb(null, "uploads/Product");
     },
     filename: async (req, file, cb) => {
         const filename = `${Date.now()}_${file.originalname}`;
@@ -24,11 +24,12 @@ FormDataRoute.get('/', async (req, res) => {
         res.send(er.message)
     }
 })
+
 FormDataRoute.get("/single/:id", async (req, res) => {
     const ids = req.params.id;
     const data = await FormDataModel.findOne({ _id: ids });
     const parentDirectory = path.join(__dirname, "..");
-    const imagesDirectory = path.join(parentDirectory, "uploads/product");
+    const imagesDirectory = path.join(parentDirectory, "uploads/Product");
     console.log(imagesDirectory);
     fs.readdir(imagesDirectory, async (err, files) => {
         if (err) {
@@ -62,7 +63,7 @@ FormDataRoute.post('/add', authenticate, upload.array('photos'), async (req, res
             name,
             age,
             address,
-            photos
+            photos,
         });
         await newFormData.save();
         console.log("ne", newFormData)
