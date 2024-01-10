@@ -5,8 +5,7 @@ const { FormDataRoute } = require("./Routes/FormRoutes");
 const { usersRoute } = require("./Routes/UserRoute");
 env.config();
 const connection = require("./Config/Db");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 const port = process.env.port || 8080;
 const cors = require("cors");
 
@@ -22,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.use("/users", usersRoute)
 
-app.use("/crdential", FormDataRoute)
+app.use("/form", FormDataRoute)
 
 app.listen(port, async () => {
     try {
